@@ -26,7 +26,7 @@ function App() {
       <div className='bg-white min-h-screen w-full selection:bg-blue-100 selection:text-blue-600'>
         
         {/* Hero Section Container */}
-        <div className='w-full h-screen flex flex-col'>
+        <div className='w-full min-h-screen flex flex-col'>
           <Navbar />
           <Banner />
         </div>

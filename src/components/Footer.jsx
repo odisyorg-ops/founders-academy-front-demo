@@ -8,7 +8,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="h-[70vh] min-h-[600px] w-full bg-white pt-24 pb-12 px-6 md:px-12 lg:px-24 flex flex-col justify-between border-t border-slate-100 relative overflow-hidden">
+    <footer className="h-screen md:h-[70vh] w-full bg-white pt-24 pb-12 px-6 md:px-12 lg:px-24 flex flex-col justify-between border-t border-slate-100 relative overflow-hidden">
       {/* Massive Background Text */}
       <div className="absolute bottom-0 left-0 w-full select-none pointer-events-none opacity-[0.03]">
         <h1 className="text-[30vw] font-black leading-none mb-[-5vw]">GROWTH.</h1>
