@@ -5,7 +5,8 @@ import {
   PhoneCall, 
   MessageSquareText, 
   FileText, 
-  CheckCircle2, 
+  CheckCircle2,
+  ChevronDown
 } from 'lucide-react';
 
 const ZigzagFunnel = () => {
@@ -14,177 +15,161 @@ const ZigzagFunnel = () => {
       id: "01",
       icon: Target, 
       title: "Market Research", 
-      desc: "Identify & map prospects",
-      color: "text-blue-500",
-      bg: "bg-blue-50",
-      border: "border-blue-200",
-      shadow: "shadow-blue-200"
+      desc: "Identify high-value prospects and map industry decision-makers.",
+      accent: "bg-blue-600",
+      textAccent: "text-blue-600",
+      numberColor: "text-slate-100" 
     },
     { 
       id: "02",
       icon: PhoneCall, 
-      title: "Outreach", 
-      desc: "Multi-channel contact",
-      color: "text-indigo-500",
-      bg: "bg-indigo-50",
-      border: "border-indigo-200",
-      shadow: "shadow-indigo-200"
+      title: "Multi-Channel Outreach", 
+      desc: "Strategic touchpoints across LinkedIn, Email, and Phone.",
+      accent: "bg-indigo-600",
+      textAccent: "text-indigo-600",
+      numberColor: "text-indigo-50" 
     },
     { 
       id: "03",
       icon: MessageSquareText, 
-      title: "Discovery", 
-      desc: "Qualification & pain",
-      color: "text-violet-500",
-      bg: "bg-violet-50",
-      border: "border-violet-200",
-      shadow: "shadow-violet-200"
+      title: "Discovery & Qualification", 
+      desc: "Deep-dive sessions to uncover pain points and fiscal impact.",
+      accent: "bg-violet-600",
+      textAccent: "text-violet-600",
+      numberColor: "text-violet-100"
     },
     { 
       id: "04",
       icon: FileText, 
-      title: "Negotiation", 
-      desc: "Proposals & terms",
-      color: "text-purple-500",
-      bg: "bg-purple-50",
-      border: "border-purple-200",
-      shadow: "shadow-purple-200"
+      title: "Strategic Negotiation", 
+      desc: "Framing proposals as ROI multipliers rather than costs.",
+      accent: "bg-purple-600",
+      textAccent: "text-purple-600",
+      numberColor: "text-purple-100"
     },
     { 
       id: "05",
       icon: CheckCircle2, 
-      title: "Closed Deal", 
-      desc: "Partnership secured",
-      color: "text-emerald-500",
-      bg: "bg-emerald-50",
-      border: "border-emerald-200",
-      shadow: "shadow-emerald-200"
+      title: "Closed-Won Partnership", 
+      desc: "Securing the signature and initiating the growth roadmap.",
+      accent: "bg-emerald-500",
+      textAccent: "text-emerald-600",
+      numberColor: "text-emerald-100" 
     },
   ];
 
   return (
-    <div className="w-screen bg-white p-6 md:p-12 flex justify-center items-center overflow-hidden rounded-xl">
-      <div className="max-w-6xl w-full">
+    <section className="w-full py-24 px-6 bg-white overflow-hidden">
+      <div className="max-w-7xl mx-auto">
         
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-slate-900">Business Development</h2>
-          <p className="text-slate-400 text-sm mt-2 uppercase tracking-widest font-semibold">Step by step Pipeline </p>
+        {/* Header */}
+        <div className="flex flex-col items-center text-center mb-32">
+          <motion.span 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="text-blue-600 font-bold tracking-[0.2em] uppercase text-xs mb-4"
+          >
+            The Systematic Approach
+          </motion.span>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight"
+          >
+            The Revenue <span className="text-blue-600 italic">Pipeline.</span>
+          </motion.h2>
         </div>
 
-        {/* Desktop View (Zigzag) - Hidden on Mobile */}
-        <div className="hidden md:block relative h-[400px]">
-          
-          {/* Connecting Line (SVG) */}
-          <svg className="absolute top-0 left-0 w-full h-full pointer-events-none z-0" preserveAspectRatio="none">
-             {/* Coordinates explained:
-                We have 5 items roughly at 10%, 30%, 50%, 70%, 90% horizontal width.
-                Top Y position approx 25%, Bottom Y position approx 75%.
-             */}
-            <motion.path
-              d="M 10% 30% L 30% 70% L 50% 30% L 70% 70% L 90% 30%"
-              fill="none"
-              stroke="#cbd5e1" // slate-300
-              strokeWidth="2"
-              strokeDasharray="8 4"
-              initial={{ pathLength: 0 }}
-              whileInView={{ pathLength: 1 }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
+        <div className="relative">
+          {/* THE LINE: Fixed center via transform */}
+          <div className="absolute left-[31px] md:left-1/2 top-0 bottom-0 w-[2px] bg-slate-100 md:-translate-x-1/2 z-0">
+            <motion.div 
+              initial={{ height: 0 }}
+              whileInView={{ height: '100%' }}
+              transition={{ duration: 1.5 }}
+              className="w-full bg-gradient-to-b from-blue-600 to-emerald-500"
             />
-          </svg>
+          </div>
 
-          {/* Grid Container */}
-          <div className="grid grid-cols-5 h-full w-full">
+          <div className="space-y-32 relative z-10">
             {stages.map((stage, index) => {
-              const isEven = index % 2 !== 0; // 0, 2, 4 are top (odd visually), 1, 3 are bottom
+              const isEven = index % 2 !== 0;
+
               return (
-                <div key={index} className={`relative flex flex-col items-center ${isEven ? 'justify-end pb-10' : 'justify-start pt-10'}`}>
+                <div key={index} className="grid grid-cols-[64px_1fr] md:grid-cols-[1fr_auto_1fr] items-center w-full">
                   
-                  {/* The Diamond Card */}
-                  <motion.div
-                    initial={{ opacity: 0, y: isEven ? 20 : -20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.2, type: "spring" }}
-                    className="relative z-10 group"
-                  >
-                    {/* Floating Number */}
-                    <div className={`absolute ${isEven ? '-bottom-8' : '-top-8'} left-1/2 -translate-x-1/2 text-2xl font-black text-slate-200 group-hover:text-slate-300 transition-colors`}>
-                      {stage.id}
-                    </div>
-
-                    {/* Diamond Shape */}
-                    <div className={`
-                      w-20 h-20 rounded-2xl rotate-45 transform transition-all duration-300
-                      bg-white border-2 flex items-center justify-center
-                      ${stage.border} group-hover:scale-110 group-hover:${stage.shadow} shadow-xl
-                    `}>
-                      {/* Counter-rotate icon to keep it straight */}
-                      <div className="-rotate-45">
-                        <stage.icon className={`w-8 h-8 ${stage.color}`} />
+                  {/* LEFT SIDE SLOT */}
+                  <div className="hidden md:flex justify-end">
+                    {!isEven ? (
+                      <div className="pr-12 lg:pr-20 w-full max-w-md">
+                        <PipelineCard stage={stage} align="right" />
                       </div>
+                    ) : (
+                      /* Spacer to keep icon centered */
+                      <div className="pr-12 lg:pr-20 w-full max-w-md opacity-0 pointer-events-none" aria-hidden="true">
+                         <PipelineCard stage={stage} align="right" />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* CENTER ICON: This is the anchor point */}
+                  <div className="flex justify-center items-center px-4 md:px-0">
+                    <motion.div 
+                      initial={{ scale: 0 }}
+                      whileInView={{ scale: 1 }}
+                      className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl ${stage.accent} shadow-xl flex items-center justify-center text-white shrink-0`}
+                    >
+                      <stage.icon size={28} strokeWidth={2.5} />
+                    </motion.div>
+                  </div>
+
+                  {/* RIGHT SIDE SLOT */}
+                  <div className="flex justify-start">
+                    {/* Mobile: Always Card | Desktop: Only if Even */}
+                    <div className={`pl-8 md:pl-12 lg:pl-20 w-full max-w-md ${isEven ? 'block' : 'md:hidden'}`}>
+                      <PipelineCard stage={stage} align="left" />
                     </div>
-
-                    {/* Pulsing Dot on Line Connection */}
-                     <div className={`absolute left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-2 ${stage.border} rounded-full z-20
-                        ${isEven ? '-top-[3.5rem]' : '-bottom-[3.5rem]'}
-                     `}></div>
-                  </motion.div>
-
-                  {/* Text Content */}
-                  <motion.div 
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ delay: 0.5 + (index * 0.1) }}
-                    className={`absolute w-40 text-center ${isEven ? 'top-10' : 'bottom-10'}`}
-                  >
-                    <h3 className="font-bold text-slate-800 text-sm uppercase tracking-wide mb-1">{stage.title}</h3>
-                    <p className="text-xs text-slate-500 leading-relaxed">{stage.desc}</p>
-                  </motion.div>
-
+                  </div>
                 </div>
               );
             })}
           </div>
-        </div>
 
-        {/* Mobile View (Vertical Stack) - Hidden on Desktop */}
-        <div className="md:hidden flex flex-col gap-8 relative">
-           {/* Vertical Line */}
-           <div className="absolute left-8 top-4 bottom-4 w-0.5 bg-slate-200"></div>
-           
-           {stages.map((stage, index) => (
-             <motion.div 
-               key={index}
-               initial={{ opacity: 0, x: -20 }}
-               whileInView={{ opacity: 1, x: 0 }}
-               viewport={{ once: true }}
-               transition={{ delay: index * 0.15 }}
-               className="flex items-center gap-6 relative z-10"
-             >
-                {/* Diamond Icon */}
-                <div className={`
-                  w-16 h-16 shrink-0 bg-white rounded-xl border-2 ${stage.border} 
-                  shadow-sm flex items-center justify-center rotate-45 ml-4
-                `}>
-                   <div className="-rotate-45">
-                    <stage.icon className={`w-6 h-6 ${stage.color}`} />
-                   </div>
-                </div>
-                
-                {/* Text */}
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 flex-1">
-                  <div className="flex justify-between items-center mb-1">
-                    <h3 className="font-bold text-slate-800">{stage.title}</h3>
-                    <span className="text-2xl font-black text-slate-100">{stage.id}</span>
-                  </div>
-                  <p className="text-sm text-slate-500">{stage.desc}</p>
-                </div>
-             </motion.div>
-           ))}
+          {/* End Goal */}
+          <div className="mt-32 flex flex-col items-center">
+             
+             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-900 bg-emerald-100 z-20 py-2 px-4 rounded-lg ">Mission Accomplished</span>
+          </div>
         </div>
-
       </div>
-    </div>
+    </section>
   );
 };
+
+const PipelineCard = ({ stage, align }) => (
+  <motion.div 
+    initial={{ opacity: 0, x: align === 'right' ? -30 : 30 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.5 }}
+    className={`relative bg-white p-8 md:p-10 rounded-[2.5rem] border border-slate-100 shadow-2xl shadow-slate-200/40 overflow-hidden group`}
+  >
+    {/* FLAT CLEAN NUMBER */}
+    <span className={`absolute -bottom-4 ${align === 'right' ? '-left-2' : '-right-2'} text-8xl md:text-9xl font-black ${stage.numberColor} leading-none select-none`}>
+      {stage.id}
+    </span>
+
+    <div className="relative z-10">
+      <div className={`text-[10px] font-bold uppercase tracking-widest ${stage.textAccent} mb-4`}>
+        Phase {stage.id}
+      </div>
+      <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
+        {stage.title}
+      </h3>
+      <p className="text-slate-500 text-sm md:text-base leading-relaxed font-medium">
+        {stage.desc}
+      </p>
+    </div>
+  </motion.div>
+);
 
 export default ZigzagFunnel;
