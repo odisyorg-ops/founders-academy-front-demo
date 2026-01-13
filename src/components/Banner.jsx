@@ -4,7 +4,7 @@ import ban from "../assets/Minimalist Workspace.png";
 
 const Banner = () => {
     return (
-        <section className="relative w-full min-h-[85vh] flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 lg:px-24 py-16 bg-white overflow-hidden">
+        <section className="relative w-full min-h-[85vh] flex flex-col lg:flex-row items-center justify-between px-6 md:px-12 lg:px-24 py-16 bg-white overflow-hidden mt-16">
 
             {/* 1. Text & CTA Area */}
             <motion.div
