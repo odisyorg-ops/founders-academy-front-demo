@@ -1,34 +1,74 @@
+import React from 'react';
 
 const Footer = () => {
   const sections = [
-    { title: "Company", links: ["Home", "About Us", "Contact Us", "Book a Call"] },
-    { title: "Services", links: ["SDR Training", "BDM Training", "AM Training", "Coaching", "Mentorship"] },
-    { title: "Support", links: ["Customer Support", "Resource Library", "Cookie Settings"] },
-    { title: "Legal", links: ["Privacy Policy", "Terms of Use"] }
+    {
+      title: "Company",
+      links: [
+        { label: "Home", href: "#" },
+        { label: "About Us", href: "#about" },
+        { label: "Contact Us", href: "#contact" },
+        { label: "Book a Call", href: "#book-call" },
+      ],
+    },
+    {
+      title: "Services",
+      links: [
+        { label: "Websites & SaaS", href: "#services-web" },
+        { label: "Mobile Apps", href: "#services-apps" },
+        { label: "Custom Software", href: "#services-software" },
+        { label: "Automation Engines", href: "#services-automation" },
+        { label: "AI & ML Solutions", href: "#services-ai" },
+      ],
+    },
+    {
+      title: "Legal",
+      links: [
+        { label: "Privacy Policy", href: "#privacy" },
+        { label: "Terms of Use", href: "#terms" },
+        { label: "Cookie Settings", href: "#cookies" },
+      ],
+    },
   ];
 
   return (
-    <footer className="h-screen md:h-[70vh] w-full bg-white pt-24 pb-12 px-6 md:px-12 lg:px-24 flex flex-col justify-between border-t border-slate-100 relative overflow-hidden">
-      {/* Massive Background Text */}
-      <div className="absolute bottom-0 left-0 w-full select-none pointer-events-none opacity-[0.03]">
-        <h1 className="text-[30vw] font-black leading-none mb-[-5vw]">GROWTH.</h1>
+    <footer className="relative flex min-h-[70vh] w-full flex-col justify-between overflow-hidden border-t border-[#536878]/20 bg-[#0a0a0a] px-6 pb-12 pt-24 md:px-12 lg:px-20">
+      
+      {/* Massive Ambient Background Watermark */}
+      <div className=" pointer-events-none absolute bottom-0 left-0 w-full select-none opacity-[0.03]">
+        <h1 className="mx-auto text-[30vw] font-black leading-none text-[#e5e4e2]">
+          ODISY
+        </h1>
       </div>
 
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-2 lg:grid-cols-5 gap-12 relative z-10">
-        <div className="col-span-2">
-          <h2 className="text-3xl font-black text-slate-900 tracking-tighter mb-6">Growth<span className="text-blue-600">.</span></h2>
-          <p className="text-slate-400 max-w-xs leading-relaxed font-medium">
-            Systematizing high-performance business development for the modern enterprise.
+      {/* Main Grid Content aligned to mx-12 layout */}
+      <div className="relative z-10 mx-12 grid w-full max-w-none grid-cols-1 gap-12 lg:grid-cols-5">
+        
+        {/* Brand Column (Spans 2 Cols) */}
+        <div className="lg:col-span-2">
+          <h2 className="mb-6 text-3xl font-black tracking-tighter text-[#e5e4e2]">
+            ODISY
+          </h2>
+          <p className="max-w-xs text-sm font-medium leading-relaxed text-[#e5e4e2]/60">
+            Engineering high-performance web apps, custom software, intelligent automations, and AI/ML systems for scalable digital growth.
           </p>
         </div>
         
+        {/* Navigation Sections */}
         {sections.map((sec, i) => (
           <div key={i}>
-            <h4 className="text-xs font-black uppercase tracking-widest text-slate-900 mb-6">{sec.title}</h4>
+            <h4 className="mb-6 text-xs font-black uppercase tracking-widest text-[#536878]">
+              {sec.title}
+            </h4>
             <ul className="space-y-4">
               {sec.links.map((link, j) => (
                 <li key={j}>
-                  <a href="#" className="text-slate-500 hover:text-blue-600 font-medium transition-colors text-sm">{link}</a>
+                  <a
+                    href={link.href}
+                    className="text-sm font-medium text-[#e5e4e2]/70 transition-colors hover:text-[#e5e4e2]"
+                  >
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -36,16 +76,8 @@ const Footer = () => {
         ))}
       </div>
 
-      <div className="max-w-7xl mx-auto w-full border-t border-slate-100 pt-8 flex flex-col md:row items-center justify-between gap-6 relative z-10">
-        <p className="text-slate-400 text-xs font-bold uppercase tracking-widest">
-          © 2026 The Founder Academy™. All rights reserved.
-        </p>
-        <div className="flex gap-8 text-slate-400">
-           <a href="#" className="hover:text-blue-600 transition-colors text-xs font-black uppercase tracking-widest">Twitter</a>
-           <a href="#" className="hover:text-blue-600 transition-colors text-xs font-black uppercase tracking-widest">LinkedIn</a>
-           <a href="#" className="hover:text-blue-600 transition-colors text-xs font-black uppercase tracking-widest">YouTube</a>
-        </div>
-      </div>
+      
+
     </footer>
   );
 };

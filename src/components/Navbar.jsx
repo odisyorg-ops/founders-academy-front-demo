@@ -1,109 +1,126 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Menu, X, ArrowRight, Sparkles } from 'lucide-react';
+import { ChevronDown, Menu, X, ArrowRight } from 'lucide-react';
+import WhatsAppCTA from '../ui/WhatsAppCTA'; // Adjust path if needed
 
-const Navbar = () => {
+const Navbar = ({
+  whatsappNumber = "1234567890",
+  whatsappMessage = "Hi! I'd love to book a call to discuss a project.",
+}) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    let prevScrollPos = window.scrollY;
+
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+
+      // Toggle background style after passing threshold
+      setIsScrolled(currentScrollPos > 20);
+
+      // Hide navbar when scrolling down, reveal when scrolling up (or at the very top)
+      if (prevScrollPos < currentScrollPos && currentScrollPos > 80) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+
+      prevScrollPos = currentScrollPos;
+    };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navGroups = [
     {
-      label: "Sales Training",
+      label: "Home",
+      href: "#",
+    },
+    {
+      label: "About",
+      href: "#about",
+    },
+    {
+      label: "Services",
       items: [
-        { title: "SDR Program", desc: "Master prospecting as a Sales Dev Representative." },
-        { title: "BDM Program", desc: "Advanced strategies for Business Dev Managers." },
-        { title: "AM Program", desc: "Retention and growth tactics for Account Managers." },
+        { title: "Websites & SaaS", desc: "High-performance web apps & modern digital platforms.", href: "#services-web" },
+        { title: "Mobile Apps", desc: "Native iOS & Android cross-platform solutions.", href: "#services-apps" },
+        { title: "Custom Software", desc: "Bespoke enterprise software tailored to your workflow.", href: "#services-software" },
+        { title: "Automation Engines", desc: "Automate complex business processes & tasks.", href: "#services-automation" },
+        { title: "AI & ML Solutions", desc: "Intelligent agentic models & LLM integrations.", href: "#services-ai" },
       ],
     },
     {
-      label: "Personal Growth",
-      items: [
-        { title: "Executive Coaching", desc: "1:1 career guidance to unlock your potential." },
-        { title: "Mentorship", desc: "Ongoing support from industry leaders." },
-        { title: "Fitness & Wellbeing", desc: "Peak performance strategies for body and mind." },
-      ],
+      label: "Contact",
+      href: "#contact",
     },
-    {
-      label: "Business Services",
-      items: [
-        { title: "Consulting", desc: "End-to-end sales process optimization." },
-        { title: "Financial Planning", desc: "Wealth building and portfolio management." },
-        { title: "Accountancy & Tax", desc: "Full HMRC compliance and tax efficiency." },
-      ],
-    },
-    {
-      label: "Digital Solutions",
-      items: [
-        { title: "E-commerce", desc: "Scalable online sales strategies and platforms." },
-        { title: "Software Development", desc: "Custom software tailored to your workflow." },
-      ],
-    },
-    {
-        label: "Company",
-        items: [
-          { title: "About Us", desc: "The mission behind the Growth framework." },
-          { title: "Resource Library", desc: "Free playbooks, templates, and guides." },
-          { title: "Contact", desc: "Get in touch with our global support team." },
-        ],
-      },
   ];
 
-  const NavItem = ({ title, desc }) => (
+  const NavItem = ({ title, desc, href }) => (
     <motion.li whileHover={{ x: 4 }}>
-      <a href="#" className="flex flex-col gap-1 p-3 rounded-2xl transition-all hover:bg-blue-50/50 group/item">
-        <span className="font-bold text-sm text-slate-900 group-hover/item:text-blue-600 flex items-center justify-between">
-          {title} <ArrowRight size={14} className="opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all" />
+      <a href={href || "#"} className="group/item flex flex-col gap-1 rounded-xl p-3 transition-all hover:bg-[#536878]/15">
+        <span className="flex items-center justify-between text-sm font-semibold text-black">
+          {title} <ArrowRight size={14} className="-translate-x-2 opacity-0 transition-all group-hover/item:translate-x-0 group-hover/item:opacity-100" />
         </span>
-        <span className="text-[11px] text-slate-500 leading-snug font-medium line-clamp-2">{desc}</span>
+        <span className="line-clamp-2 text-[11px] font-medium text-slate-600">{desc}</span>
       </a>
     </motion.li>
   );
 
   return (
-    <nav className={`fixed top-0 w-full z-[100] transition-all duration-500 px-4 md:px-8 lg:px-12 
-      ${isScrolled ? 'py-3 bg-white/90 backdrop-blur-xl border-b border-slate-100 shadow-sm' : 'py-6 bg-transparent'}`}>
+    <nav className={`fixed top-0 z-[100] w-full transition-all duration-500 ease-in-out ${
+      isVisible ? 'translate-y-0' : '-translate-y-full'
+    } ${
+      isScrolled ? 'border-b border-black/10 bg-white/85 py-3 shadow-sm backdrop-blur-xl' : 'bg-transparent py-6'
+    }`}>
       
-      <div className="max-w-[1400px] mx-auto flex items-center justify-between">
+      {/* Container wrapper set to full width with mx-6 on mobile and mx-12 on desktop */}
+      <div className="mx-6 flex max-w-[100vw] items-center justify-between lg:mx-12">
         
-        {/* LOGO */}
+        {/* LOGO (Comfortaa font applied ONLY here) */}
         <div className="flex-shrink-0">
-          <a className="text-2xl font-black tracking-tighter text-slate-900 flex items-center gap-1">
-            GROWTH<span className="text-blue-600">.</span>
+          <a href="#" className="flex items-center gap-0.5 font-['Comfortaa'] text-3xl font-bold text-black">
+            ODISY<span className="text-[#536878]">.</span>
           </a>
         </div>
 
-        {/* DESKTOP NAV - Condensed labels for fit */}
-        <div className="hidden xl:flex items-center gap-1">
+        {/* DESKTOP NAV */}
+        <div className="hidden items-center gap-2 lg:flex">
           {navGroups.map((group, idx) => (
             <div 
               key={idx} 
               className="relative"
-              onMouseEnter={() => setHoveredIndex(idx)}
-              onMouseLeave={() => setHoveredIndex(null)}
+              onMouseEnter={() => group.items && setHoveredIndex(idx)}
+              onMouseLeave={() => group.items && setHoveredIndex(null)}
             >
-              <button className={`px-4 py-2 rounded-full text-[13px] font-bold transition-all flex items-center gap-1
-                ${hoveredIndex === idx ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
-                {group.label}
-                <ChevronDown size={14} className={`transition-transform duration-300 ${hoveredIndex === idx ? 'rotate-180' : ''}`} />
-              </button>
+              {group.items ? (
+                <button className={`flex items-center gap-1 rounded-full px-4 py-2 text-sm font-bold transition-all ${
+                  hoveredIndex === idx ? 'text-[#536878]' : 'text-black hover:text-[#536878]'
+                }`}>
+                  {group.label}
+                  <ChevronDown size={14} className={`transition-transform duration-300 ${hoveredIndex === idx ? 'rotate-180' : ''}`} />
+                </button>
+              ) : (
+                <a href={group.href} className="px-4 py-2 text-sm font-bold text-black transition-all hover:text-[#536878]">
+                  {group.label}
+                </a>
+              )}
 
+              {/* DROPDOWN MENU FOR SERVICES */}
               <AnimatePresence>
-                {hoveredIndex === idx && (
+                {hoveredIndex === idx && group.items && (
                   <motion.div
                     initial={{ opacity: 0, y: 10, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    className="absolute top-full left-0 w-72 pt-4"
+                    className="absolute left-0 top-full w-80 pt-4"
                   >
-                    <div className="bg-white rounded-[2rem] p-4 shadow-2xl border border-slate-100 ring-1 ring-black/5">
+                    <div className="rounded-2xl border border-[#536878]/30 bg-white p-4 shadow-2xl backdrop-blur-2xl ring-1 ring-black/5">
                       <ul className="space-y-1">
                         {group.items.map((item, i) => <NavItem key={i} {...item} />)}
                       </ul>
@@ -115,16 +132,20 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* ACTIONS */}
-        <div className="hidden lg:flex items-center gap-4">
-          <a href="#" className="text-sm font-bold text-slate-600 hover:text-blue-600 transition-colors">Client Login</a>
-          <button className="px-6 py-3 bg-slate-900 text-white text-sm font-bold rounded-xl hover:bg-blue-600 transition-all shadow-xl shadow-slate-200 flex items-center gap-2 group">
-            Enroll Now <Sparkles size={16} className="group-hover:rotate-12 transition-transform" />
-          </button>
+        {/* DESKTOP CTA ACTION BUTTON (Imported WhatsAppCTA) */}
+        <div className="hidden items-center lg:flex">
+          <WhatsAppCTA
+            phoneNumber={whatsappNumber}
+            message={whatsappMessage}
+            label="Book a call"
+          />
         </div>
 
-        {/* MOBILE TOGGLE */}
-        <button onClick={() => setIsMobileMenuOpen(true)} className="xl:hidden p-2 text-slate-900 hover:bg-slate-100 rounded-full transition-colors">
+        {/* MOBILE MENU TOGGLE */}
+        <button 
+          onClick={() => setIsMobileMenuOpen(true)} 
+          className="rounded-xl border border-black/15 p-2 text-black transition-colors hover:bg-black/5 lg:hidden"
+        >
           <Menu size={24} />
         </button>
       </div>
@@ -133,37 +154,56 @@ const Navbar = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div 
-            initial={{ opacity: 0, scale: 1.1 }}
+            initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.1 }}
-            className="fixed inset-0 bg-white z-[150] p-6 flex flex-col overflow-y-auto"
+            exit={{ opacity: 0, scale: 1.05 }}
+            className="fixed inset-0 z-[150] flex flex-col overflow-y-auto bg-white p-6 text-black"
           >
-            <div className="flex justify-between items-center mb-10">
-              <span className="text-2xl font-black text-slate-900 tracking-tighter">GROWTH.</span>
-              <button onClick={() => setIsMobileMenuOpen(false)} className="p-3 bg-slate-100 rounded-full text-slate-900">
+            <div className="mb-10 flex items-center justify-between">
+              <span className="font-['Comfortaa'] text-2xl font-bold text-black">
+                ODISY<span className="text-[#536878]">.</span>
+              </span>
+              <button onClick={() => setIsMobileMenuOpen(false)} className="rounded-full border border-black/15 bg-black/5 p-3 text-black">
                 <X size={24} />
               </button>
             </div>
             
-            <div className="space-y-10 pb-12">
+            <div className="space-y-8 pb-12">
               {navGroups.map((group, idx) => (
                 <div key={idx}>
-                  <p className="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em] mb-6">{group.label}</p>
-                  <div className="grid gap-6">
-                    {group.items.map((item, i) => (
-                      <a key={i} href="#" className="group">
-                        <p className="font-bold text-xl text-slate-900 group-active:text-blue-600">{item.title}</p>
-                        <p className="text-sm text-slate-500 mt-1">{item.desc}</p>
-                      </a>
-                    ))}
-                  </div>
+                  {group.items ? (
+                    <div>
+                      <p className="mb-4 text-[10px] font-black uppercase tracking-[0.2em] text-[#536878]">{group.label}</p>
+                      <div className="grid gap-4 pl-2">
+                        {group.items.map((item, i) => (
+                          <a key={i} href={item.href} onClick={() => setIsMobileMenuOpen(false)} className="group">
+                            <p className="text-lg font-bold text-black group-active:text-[#536878]">{item.title}</p>
+                            <p className="mt-0.5 text-xs text-black/60">{item.desc}</p>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <a 
+                      href={group.href} 
+                      onClick={() => setIsMobileMenuOpen(false)} 
+                      className="block text-2xl font-bold text-black transition-colors hover:text-[#536878]"
+                    >
+                      {group.label}
+                    </a>
+                  )}
                 </div>
               ))}
             </div>
 
-            <div className="mt-auto pt-8 border-t border-slate-100 flex flex-col gap-4">
-              <button className="w-full py-5 bg-blue-600 text-white font-bold rounded-2xl shadow-lg shadow-blue-200">Start Your Program</button>
-              <button className="w-full py-5 bg-slate-50 text-slate-900 font-bold rounded-2xl">Member Sign In</button>
+            {/* MOBILE CTA ACTION BUTTON (Imported WhatsAppCTA) */}
+            <div className="mt-auto border-t border-black/10 pt-6">
+              <WhatsAppCTA
+                phoneNumber={whatsappNumber}
+                message={whatsappMessage}
+                label="Book a call"
+                className="w-full [&>a]:w-full [&>a]:justify-center"
+              />
             </div>
           </motion.div>
         )}

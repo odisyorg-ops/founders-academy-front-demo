@@ -1,24 +1,54 @@
-import { Zap } from "lucide-react";
+import React from 'react';
+import { MessageCircle } from "lucide-react";
 
-const CallToAction = () => (
-  <section className="py-24 px-6 md:px-12 lg:px-24 bg-white">
-    <div className="max-w-6xl mx-auto rounded-[3.5rem] bg-blue-50 p-12 md:p-24 relative overflow-hidden flex flex-col items-center text-center">
-      <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-50" />
-      <div className="relative z-10">
-        <h2 className="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-8">
-          Ready to Close Bigger Deals <br /> 
-          & Build a <span className="text-blue-600 italic">7-Figure</span> Pipeline?
-        </h2>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-12">
-          Get a free 20-minute strategy call. Walk away with clarity, not pressure. No fluff, just a roadmap.
-        </p>
-        <button className="px-12 py-6 bg-slate-900 text-white font-bold rounded-2xl hover:bg-blue-600 transition-all shadow-xl shadow-blue-200/50 flex items-center gap-3 group">
-          Book Your Free Strategy Call
-          <Zap className="group-hover:fill-current" size={20} />
-        </button>
+const CallToAction = ({ 
+  phoneNumber = "+8801622214734", 
+  defaultMessage = "Hello ODISY team! I'm interested in discussing a project for my business." 
+}) => {
+  const handleWhatsAppClick = () => {
+    const encodedMsg = encodeURIComponent(defaultMessage);
+    const cleanNumber = phoneNumber.replace(/[^0-9]/g, '');
+    window.open(`https://wa.me/${cleanNumber}?text=${encodedMsg}`, '_blank');
+  };
+
+  return (
+    <section className="relative w-full py-24">
+      {/* Outer wrapper maintaining mx-12 layout */}
+      <div className="mx-12">
+        <div className="relative mx-auto flex  flex-col items-center overflow-hidden rounded-[2.5rem]  bg-gradient-to-br from-[#536878]/15 via-[#0a0a0a] to-[#0a0a0a] p-12 text-center shadow-2xl md:p-24">
+          
+          {/* Ambient Glow Effects */}
+          <div className="absolute -left-24 -top-24 h-96 w-96 rounded-full bg-[#536878]/20 blur-3xl" />
+          <div className="absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-[#536878]/15 blur-3xl" />
+
+          {/* Card Content */}
+          <div className="relative z-10 flex flex-col items-center">
+            
+            
+
+            <h2 className="mb-6 text-4xl  text-[#e5e4e2] md:text-6xl">
+              Ready to Accelerate Your <br />
+              <span className="text-[#536878]">Digital Footprint?</span>
+            </h2>
+
+            <p className="mb-10 max-w-2xl text-m text-[#e5e4e2]/70">
+              Skip the lengthy contact forms. Connect directly with our lead architects on WhatsApp for instant scope discussions and immediate project onboarding.
+            </p>
+
+            {/* WhatsApp CTA Button */}
+            <button 
+              onClick={handleWhatsAppClick}
+              className="group flex items-center gap-3 rounded-xl bg-[#e5e4e2] px-10 py-5 text-base font-bold text-[#0a0a0a] shadow-xl transition-all hover:bg-white hover:shadow-[#536878]/30"
+            >
+              <MessageCircle className="h-5 w-5 text-emerald-600 transition-transform group-hover:scale-110" />
+              Chat on WhatsApp Now
+            </button>
+            
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default CallToAction;
